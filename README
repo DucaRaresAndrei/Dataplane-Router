@@ -1,0 +1,36 @@
+**Duca Andrei-Rares**  
+**321CA**
+
+# Tema 1 PCOM: DATAPLANE ROUTER
+
+## Algoritm:
+
+### Initializari:
+
+Alocam memorie pentru tabelele de routare si arp, care vor fi populate ulterior.
+
+### Testari suplimentare:
+
+Pentru procesul de dirijare, verificam din destinatia pachetului daca trebuie aruncat.
+
+### Procedeul IPv4:
+
+Facem cele 3 verificari:
+* daca el este destinatia
+* checksum
+* verificam TTL si il actualizam
+
+apoi cautam in tabela de routare pentru a determina cel mai bun hop, adica adresa urmatorului hop. Daca nu a fost gasita, trimitem un mesaj ICMP destination unreachable.
+Dupa ce gasim adresa ip a noului hop in tabela arp, trimitem noul pachet.
+
+### Procedeul Longest Prefix Match:
+
+Se va realiza printr-o cautare binara, anterior route table-ul va fi sortat cu qsort.
+
+### Procedeul ICMP
+
+Se ocupa de gestionarea celor 3 tipuri de mesaje:
+* Destination unreachable
+* Time exceeded
+* Echo request -> Echo reply
+pentru care updateaza noul pachet si il trimite.
